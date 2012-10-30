@@ -21,7 +21,7 @@ class Service
      */
     public function getUserFromSession()
     {
-        $idInSession = $this->session->get('aw_facebook_id');
+        $idInSession = $this->session->get('aw_facebook_auth_id');
         if (!$idInSession) {
             return null;
         }
@@ -29,6 +29,14 @@ class Service
         return $this->entityManager
             ->getRepository('AWFacebookAuthBundle:User')
             ->find($idInSession);
+    }
+
+    /**
+     * @param \AW\Bundle\FacebookAuthBundle\Entity\User $user
+     */
+    public function setUserInSession(User $user)
+    {
+        $this->session->set('aw_facebook_auth_id', $user->getId());
     }
 
     /**

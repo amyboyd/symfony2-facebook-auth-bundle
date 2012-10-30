@@ -110,8 +110,8 @@ class DefaultController extends Controller
         $em->persist($user);
         $em->flush();
 
-        // Redirect back to the original page.
-        $this->get('session')->set('aw_facebook_auth_id', $user->getId());
+        // Persist the user in the session, and redirect back to the continue URL.
+        $this->get('aw_facebook_auth')->setUserInSession($user);
         return $this->redirect($request->get('continue'));
     }
 
