@@ -1,7 +1,3 @@
-aw_facebook_auth_auth:
+aw_facebook_auth:
     pattern:  /awfacebookauthbundle/auth
     defaults: { _controller: AWFacebookAuthBundle:Default:auth }
-
-aw_facebook_auth_callback:
-    pattern:  /awfacebookauthbundle/callback
-    defaults: { _controller: AWFacebookAuthBundle:Default:callback }

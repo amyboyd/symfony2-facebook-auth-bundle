@@ -20,31 +20,52 @@ class User
     private $id;
 
     /**
-     * @var string $name
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var string $allDataSerialized
-     * @ORM\Column(name="all_data_serialized", type="text")
+     * @ORM\Column(name="locale", type="string", length=5)
      */
-    private $allDataSerialized;
+    private $locale;
+
+    /**
+     * @ORM\Column(name="token", type="string")
+     */
+    private $token;
+
+    /**
+     * Unix timestamp.
+     * @ORM\Column(name="token_expires", type="integer")
+     */
+    private $tokenExpires;
+
+    /**
+     * This will only be changed to false if the user revokes our app's
+     * permissions.
+     *
+     * @ORM\Column(name="is_authorized", type="boolean")
+     */
+    private $isAuthorized;
+
+    /**
+     * @var string $allDataJson
+     * @ORM\Column(name="all_data_json", type="text")
+     */
+    private $allDataJson;
 
     public function __construct(\stdClass $data)
     {
         $this->id = $data->id;
+        $this->isAuthorized = true;
         $this->updateWithNewData($data);
     }
 
     public function updateWithNewData(\stdClass $data)
     {
-        if ($this->id != $data->id) {
-            throw new \AW\Bundle\FacebookAuthBundle\Exception('IDs don\'t match');
-        }
-
         $this->name = $data->name;
-        $this->allDataSerialized = serialize($data);
+        $this->locale = $data->locale;
+        $this->allDataJson = json_encode($data);
     }
 
     public function getId()
@@ -57,8 +78,23 @@ class User
         return $this->name;
     }
 
-    public function getAllDataSerialized()
+    public function getAllDataJson()
     {
-        return $this->allDataSerialized;
+        return $this->allDataJson;
+    }
+
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
+
+    public function setTokenExpires($tokenExpires)
+    {
+        $this->tokenExpires = $tokenExpires;
+    }
+
+    public function setIsAuthorized($isAuthorized)
+    {
+        $this->isAuthorized = $isAuthorized;
     }
 }

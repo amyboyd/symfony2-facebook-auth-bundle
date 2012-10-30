@@ -30,4 +30,27 @@ class Service
             ->getRepository('AWFacebookAuthBundle:User')
             ->find($idInSession);
     }
+
+    /**
+     * @param string $path Everything except 'https://graph.facebook.com/'.
+     * @throws \AW\Bundle\FacebookAuthBundle\Exception
+     */
+    public function makeGraphApiRequest($path)
+    {
+        $request = curl_init();
+        curl_setopt($request, CURLOPT_URL, 'https://graph.facebook.com/' . $path);
+        curl_setopt($request, CURLOPT_HEADER, 0);
+        curl_setopt($request, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($request, CURLOPT_SSL_VERIFYPEER, 0);
+
+        $response = curl_exec($request);
+        if (!curl_errno($request)) {
+        }
+        else {
+            throw new Exception('Curl error: ' . curl_error($request));
+        }
+
+        curl_close($request);
+        return $response;
+    }
 }
