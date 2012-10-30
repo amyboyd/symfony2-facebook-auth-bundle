@@ -1,0 +1,4 @@
+services:
+    aw_facebook_auth:
+        class: AW\Bundle\FacebookAuthBundle\Service
+        arguments: [@doctrine.orm.entity_manager, @session]
