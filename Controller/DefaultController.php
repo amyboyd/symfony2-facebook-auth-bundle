@@ -121,4 +121,52 @@ class DefaultController extends Controller
             throw new \AW\Bundle\TwitterOAuthBundle\Exception('No continue parameter in the request query string');
         }
     }
+
+    /**
+     * User has de-authorized the app from their app settings page.
+     *
+     * From Facebook's documentation: "Upon app removal we will send an HTTP POST
+     * request containing a single parameter, signed_request, which, once decoded,
+     * will yield a JSON object containing the user_id of the user who just
+     * deauthorized your app. You will not receive a user access token in this
+     * request and all existing user access tokens that were previously issued
+     * on behalf of that user will become invalid."
+     */
+    public function deauthAction(Request $request)
+    {
+        $data = $this->decodeSignedRequestFromFacebook($request);
+        /*
+          Data looks like:
+          Array(
+          [algorithm] => HMAC-SHA256
+          [issued_at] => 1347017664
+          [user] => Array(
+            [country] => gb
+            [locale] => en_GB
+          )
+          [user_id] => 100001661128961
+          )
+         */
+
+        $this->get('logger')->info('FB user deauthorized: ' . $data['user_id']);
+        $user = $this->getDoctrine()->getRepository('AWFacebookAuthBundle:User')->find($data['user_id']);
+        if ($user) {
+            $user->setIsAuthorized(false);
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($user);
+            $em->flush();
+        }
+
+        return new Response();
+    }
+
+    /**
+     * @return array
+     */
+    private function decodeSignedRequestFromFacebook()
+    {
+        list($encodedSig, $payload) = explode('.', $request->get('signed_request'), 2);
+        unset($encodedSig); // not needed.
+        return json_decode(base64_decode(strtr($payload, '-_', '+/')), true);
+    }
 }
