@@ -40,8 +40,8 @@ class Service
     }
 
     /**
-     * @param string $path Everything except 'https://graph.facebook.com/'.
-     * @throws \AW\Bundle\FacebookAuthBundle\Exception
+     * @param string $path Everything after 'https://graph.facebook.com/' - e.g. 'me/picture?access_token=...'
+     * @throws \AW\Bundle\FacebookAuthBundle\Exception if there was an error making the request.
      */
     public function makeGraphApiRequest($path)
     {
