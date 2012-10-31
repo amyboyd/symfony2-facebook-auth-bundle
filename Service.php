@@ -4,6 +4,7 @@ namespace AW\Bundle\FacebookAuthBundle;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Session\Session;
+use AW\Bundle\FacebookAuthBundle\Entity\User;
 
 class Service
 {
@@ -60,5 +61,13 @@ class Service
 
         curl_close($request);
         return $response;
+    }
+
+    /**
+     * @return EntityManager
+     */
+    public function getEntityManager()
+    {
+        return $this->entityManager;
     }
 }
