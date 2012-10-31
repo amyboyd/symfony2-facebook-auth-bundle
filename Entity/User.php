@@ -91,6 +91,14 @@ class User
         return $this->allDataJson;
     }
 
+    /**
+     * 5-character locale, like "en_GB".
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
     public function setToken($token)
     {
         $this->token = $token;
