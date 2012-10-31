@@ -99,6 +99,18 @@ class User
         return $this->locale;
     }
 
+    /**
+     * @param $protocol One of 'http://', 'https://', or '//'
+     * @throws Exception if $protocol is not valid.
+     */
+    public function getPhotoUrl($protocol = '//')
+    {
+        if (!in_array($protocol, array('http://', 'https://', '//'))) {
+            throw new Exception('Protocol is not valid: ' . $protocol);
+        }
+        return $protocol . 'graph.facebook.com/' . $this->id . '/picture';
+    }
+
     public function setToken($token)
     {
         $this->token = $token;
