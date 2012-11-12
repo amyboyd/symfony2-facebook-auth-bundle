@@ -100,15 +100,19 @@ class User
     }
 
     /**
-     * @param $protocol One of 'http://', 'https://', or '//'
+     * @param $protocol One of 'http://', 'https://', or '//'.
+     * @param $size One of square (50x50),
+     *                     small (50 pixels wide, variable height),
+     *                     normal (100 pixels wide, variable height),
+     *                     or large (about 200 pixels wide, variable height).
      * @throws Exception if $protocol is not valid.
      */
-    public function getPhotoUrl($protocol = '//')
+    public function getPhotoUrl($protocol = '//', $size = 'square')
     {
         if (!in_array($protocol, array('http://', 'https://', '//'))) {
             throw new Exception('Protocol is not valid: ' . $protocol);
         }
-        return $protocol . 'graph.facebook.com/' . $this->id . '/picture';
+        return $protocol . 'graph.facebook.com/' . $this->id . '/picture?type=' . $size;
     }
 
     public function setToken($token)
