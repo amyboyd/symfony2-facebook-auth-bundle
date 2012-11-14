@@ -165,4 +165,14 @@ class User
 
         return $this->friendCount;
     }
+
+    public function getIsAuthorized()
+    {
+        return $this->isAuthorized;
+    }
+
+    public function isAuthorized()
+    {
+        return $this->isAuthorized;
+    }
 }
