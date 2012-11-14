@@ -27,7 +27,7 @@
 * Add to your app/config/routing.yml:
 
     `aw_facebook_auth: {
-        resource: "@AWFacebookAuthBundle/Resources/config/routing.yml"
+        resource: "@AWFacebookAuthBundle/Resources/config/routing.yml",
         prefix:   / }`
 
 * Copy the contents of `Resources/config/parameters.yml.sample` to your own `app/config/parameters.yml`
