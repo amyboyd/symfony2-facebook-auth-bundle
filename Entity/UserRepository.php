@@ -12,4 +12,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+    public function countAuthenticated()
+    {
+        return $this->createQueryBuilder('u')
+            ->select('COUNT(u)')
+            ->where('u.isAuthorized = true')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function countAll()
+    {
+        return $this->createQueryBuilder('u')
+            ->select('COUNT(u)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }
