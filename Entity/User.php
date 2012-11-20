@@ -171,6 +171,12 @@ class User
         return $this->isAuthorized;
     }
 
+    public function getProfileUrl()
+    {
+        $allData = json_decode($this->allDataJson, true);
+        return (isset($allData['link']) ? $allData['link'] : 'http://www.facebook.com/' . $this->id);
+    }
+
     public function isAuthorized()
     {
         return $this->isAuthorized;
