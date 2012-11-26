@@ -40,6 +40,11 @@ class Service
         $this->session->set('aw_facebook_auth_id', $user->getId());
     }
 
+    public function removeUserFromSession()
+    {
+        $this->session->remove('aw_facebook_auth_id');
+    }
+
     /**
      * @param string $path Everything after 'https://graph.facebook.com/' - e.g. 'me/picture?access_token=...'
      * @throws \AW\Bundle\FacebookAuthBundle\Exception if there was an error making the request.
