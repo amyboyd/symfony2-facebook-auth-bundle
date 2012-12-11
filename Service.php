@@ -58,14 +58,15 @@ class Service
         curl_setopt($request, CURLOPT_SSL_VERIFYPEER, 0);
 
         $response = curl_exec($request);
-        if (!curl_errno($request)) {
+        if (curl_errno($request) === 0) {
+            curl_close($request);
+            return $response;
         }
         else {
-            throw new Exception('Curl error: ' . curl_error($request));
+            $error = 'cURL error ' . curl_errno($request) . ': ' . curl_error($request);
+            curl_close($request);
+            throw new Exception($error);
         }
-
-        curl_close($request);
-        return $response;
     }
 
     /**
