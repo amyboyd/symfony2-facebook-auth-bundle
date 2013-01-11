@@ -150,7 +150,7 @@ class User
         // The number of friends a user has isn't available in Graph's Person object.
         // Instead, the number can be retrieved through an FQL query.
         $fql = 'SELECT friend_count FROM user WHERE uid = me()';
-        $response = $service->makeGraphApiRequest(sprintf(
+        $response = \AW\Bundle\FacebookAuthBundle\Service::makeGraphApiRequest(sprintf(
             'fql?q=%s&access_token=%s',
             urlencode($fql),
             $this->token));

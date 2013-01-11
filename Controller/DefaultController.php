@@ -78,7 +78,7 @@ class DefaultController extends Controller
             urlencode($this->generateUrl('aw_facebook_auth', array('continue' => $request->get('continue')), true)),
             $request->get('code'));
 
-        $response = $this->get('aw_facebook_auth')->makeGraphApiRequest($url);
+        $response = \AW\Bundle\FacebookAuthBundle\Service::makeGraphApiRequest($url);
         // $response now looks like:
         // access_token=USER_ACCESS_TOKEN&expires=NUMBER_OF_SECONDS_UNTIL_TOKEN_EXPIRES
         $responseParsed = array();
@@ -92,7 +92,7 @@ class DefaultController extends Controller
         $token = $tokenAndExpires['access_token'];
         $expires = $tokenAndExpires['expires'];
 
-        $response = $this->get('aw_facebook_auth')->makeGraphApiRequest('me?access_token=' . $token);
+        $response = \AW\Bundle\FacebookAuthBundle\Service::makeGraphApiRequest('me?access_token=' . $token);
         $response = json_decode($response, false);
 
         // Create or update the user entity.
