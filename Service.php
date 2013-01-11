@@ -51,8 +51,12 @@ class Service
      */
     public static function makeGraphApiRequest($path)
     {
+        if (strpos($path, '://graph.facebook.com/') === false) {
+            $path = 'https://graph.facebook.com/' . $path;
+        }
+
         $request = curl_init();
-        curl_setopt($request, CURLOPT_URL, 'https://graph.facebook.com/' . $path);
+        curl_setopt($request, CURLOPT_URL, $path);
         curl_setopt($request, CURLOPT_HEADER, 0);
         curl_setopt($request, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($request, CURLOPT_SSL_VERIFYPEER, 0);

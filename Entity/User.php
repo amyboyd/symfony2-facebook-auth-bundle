@@ -120,6 +120,11 @@ class User
         $this->token = $token;
     }
 
+    public function getToken()
+    {
+        return $this->token;
+    }
+
     public function setTokenExpires($tokenExpires)
     {
         $this->tokenExpires = $tokenExpires;
@@ -164,6 +169,22 @@ class User
         }
 
         return $this->friendCount;
+    }
+
+    /**
+     * @return \AW\Bundle\FacebookAuthBundle\Entity\Friends
+     */
+    public function getFriends()
+    {
+        global $kernel;
+        $doctrine = $kernel->getContainer()->get('doctrine');
+        /* @var $doctrine \Doctrine\Bundle\DoctrineBundle\Registry */
+
+        $friends = $doctrine->getEntityManager()->find('AWFacebookAuthBundle:Friends', $this->id);
+        if ($friends) {
+            return $friends;
+        }
+        return new Friends($this);
     }
 
     public function getIsAuthorized()
