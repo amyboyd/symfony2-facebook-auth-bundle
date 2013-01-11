@@ -28,6 +28,7 @@ class User
 
     /**
      * @ORM\Column(name="friend_count", type="integer")
+     * @deprecated since version bcd9f7164e501cb6ad53558c052df87ce896a13c - use getFriends()
      */
     private $friendCount;
 
@@ -135,6 +136,9 @@ class User
         $this->isAuthorized = $isAuthorized;
     }
 
+    /**
+     * @deprecated since version bcd9f7164e501cb6ad53558c052df87ce896a13c - use getFriends()
+     */
     public function getFriendCount()
     {
         return $this->friendCount;
@@ -142,6 +146,8 @@ class User
 
     /**
      * Update the object's friend count (doesn't automatically persist).
+     *
+     * @deprecated since version bcd9f7164e501cb6ad53558c052df87ce896a13c - use getFriends()
      * @param \AW\Bundle\FacebookAuthBundle\Service $service
      * @param $autoPersistAndFlush Whether or not to auto-persist the object.
      * @return int Number of friends.
