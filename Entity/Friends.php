@@ -50,6 +50,7 @@ class Friends
     public function setRefreshFrequency($minutes)
     {
        $this->refreshFrequencyInMinutes = $minutes;
+       return $this;
     }
 
     /**
@@ -61,6 +62,21 @@ class Friends
             $this->refresh();
         }
         return json_decode($this->namesAndIDs, true);
+    }
+
+    /**
+     * @param string $id
+     * @return string or false.
+     */
+    public function getNameByID($id)
+    {
+        $all = $this->getAll();
+        foreach ($all as $user) {
+            if ($user['id'] == $id) {
+                return $user['name'];
+            }
+        }
+        return false;
     }
 
     public function getCount()
