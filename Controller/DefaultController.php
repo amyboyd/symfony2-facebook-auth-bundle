@@ -118,7 +118,7 @@ class DefaultController extends Controller
     private function requireContinueParam(Request $request)
     {
         if (!$request->get('continue')) {
-            throw new \AW\Bundle\TwitterOAuthBundle\Exception('No continue parameter in the request query string');
+            throw new \AW\Bundle\FacebookAuthBundle\Exception('No continue parameter in the request query string');
         }
     }
 
