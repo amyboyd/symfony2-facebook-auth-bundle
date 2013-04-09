@@ -92,6 +92,11 @@ class User
         return $this->allDataJson;
     }
 
+    public function getAllDataJsonAsArray()
+    {
+        return json_decode($this->allDataJson, true);
+    }
+
     /**
      * 5-character locale, like "en_GB".
      */
