@@ -14,7 +14,7 @@
 
 ## Install ##
 
-* If you use Git, run `git submodule add https://bitbucket.org/alienmegacorp/facebook-api-bundle-for-symfony2.git path/to/bundles/AW/Bundle/FacebookAuthBundle`
+* If you use Git, run `git submodule add git@github.com:amyboyd/symfony2-facebook-auth-bundle.git path/to/bundles/AW/Bundle/FacebookAuthBundle`
 
 * If you don't use Git, download the source and put it into your bundles
   directory.
